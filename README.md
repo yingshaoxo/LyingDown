@@ -12,23 +12,23 @@ ___
 
 1. install auto_everything
 
-https://github.com/yingshaoxo/auto_everything#installation
+    https://github.com/yingshaoxo/auto_everything#installation
 
 2. install OpenCV
 
-```
-wget https://github.com/yingshaoxo/auto_everything/raw/master/demo/install_OpenCV.py
-sudo python3 install_OpenCV.py
-```
+    ```
+    wget https://github.com/yingshaoxo/auto_everything/raw/master/demo/install_OpenCV.py
+    sudo python3 install_OpenCV.py
+    ```
 
 3. install other dependences
 
-```
-sudo pip3 install numpy
-sudo pip3 install pyscreenshot
-sudo pip3 install pyautogui
-sudo pip3 install flask
-```
+    ```
+    sudo pip3 install numpy
+    sudo pip3 install pyscreenshot
+    sudo pip3 install pyautogui
+    sudo pip3 install flask
+    ```
 ___
 
 ### Running
