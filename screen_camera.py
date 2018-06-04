@@ -26,5 +26,5 @@ class VideoCamera(object):
             self.top_left[0], self.top_left[1], self.lower_right[0], self.lower_right[1])))
         image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-        ret, jpeg = cv2.imencode('.jpg', image)
-        return jpeg.tobytes()
+        ret, png = cv2.imencode('.png', image)
+        return png.tobytes()
