@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Video Streaming</title>
+        <style>
+            body, html {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            img {
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <img id="bg" onclick="toggleFullScreen();" src="{{ url_for('video_feed', num=1) }}">
+        <img id="bg" onclick="toggleFullScreen();" src="{{ url_for('video_feed', num=2) }}">
+    </body>
+
+    <script>
+        function toggleFullScreen() {
+          if ((document.fullScreenElement && document.fullScreenElement !== null) ||
+          (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+          if (document.documentElement.requestFullScreen) {
+            document.documentElement.requestFullScreen();
+          } else if (document.documentElement.mozRequestFullScreen) {
+            document.documentElement.mozRequestFullScreen();
+          } else if (document.documentElement.webkitRequestFullScreen) {
+            document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+          }
+          } else {
+          if (document.cancelFullScreen) {
+            document.cancelFullScreen();
+          } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+          } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
+          }
+          }
+        }
+    </script>
+</html>
