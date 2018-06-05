@@ -1,5 +1,10 @@
 from flask import Flask, render_template, Response
 from screen_camera import VideoCamera
+from auto_everything.base import Terminal
+
+t = Terminal()
+t.run_py("mouse_control.py")
+
 
 app = Flask(__name__)
 
