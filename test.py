@@ -18,7 +18,7 @@ class VideoCamera(object):
             self.top_left = (self.screen_width//2, self.screen_height//2)
             self.lower_right = (self.screen_width, self.screen_height)
 
-        self.cursor = cv2.resize(cv2.imread('cursor.png'), (15, 15))
+        self.cursor = cv2.resize(cv2.imread('cursor.png'), (10, 10))
         # self.top_left = (0, 0)
         # self.lower_right = (self.screen_width, self.screen_height)
 
@@ -26,9 +26,7 @@ class VideoCamera(object):
         frame = np.array(ImageGrab.grab(bbox=(
             self.top_left[0], self.top_left[1], self.lower_right[0], self.lower_right[1])))
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
         frame = self.add_cursor(frame)
-        # frame = self.sharp(frame)
 
         ret, png = cv2.imencode('.png', frame)
         return png.tobytes()
@@ -37,9 +35,7 @@ class VideoCamera(object):
         frame = np.array(ImageGrab.grab(bbox=(
             self.top_left[0], self.top_left[1], self.lower_right[0], self.lower_right[1])))
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
         frame = self.add_cursor(frame)
-        frame = self.sharp(frame)
         return frame
 
     def add_cursor(self, frame):
@@ -50,16 +46,6 @@ class VideoCamera(object):
             xx, yy = x+self.cursor.shape[0], y+self.cursor.shape[1]
             frame[y:yy, x:xx] = self.cursor
         return frame
-
-    def sharp(self, frame):
-        # Create our shapening kernel, it must equal to one eventually
-        kernel_sharpening = np.array([[-1, -1, -1],
-                                      [-1, 9, -1],
-                                      [-1, -1, -1]])
-
-        # applying the sharpening kernel to the input image & displaying it.
-        sharpened = cv2.filter2D(frame, -1, kernel_sharpening)
-        return sharpened
 
 
 if __name__ == "__main__":

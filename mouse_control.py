@@ -5,7 +5,7 @@ from pynput.mouse import Controller as MouseController
 from pynput.mouse import Button
 
 
-DISTANCE = 20
+DISTANCE = 15
 
 mouseControl = MouseController()
 
@@ -50,7 +50,7 @@ def handle(k):
         mouseControl.move(DISTANCE, 0)
     elif k == "enter":
         mouseControl.click(Button.left)
-    elif k == "num_lock":
+    elif k == "0":
         mouseControl.click(Button.left)
 
 
