@@ -24,7 +24,7 @@ def on_press(key):
         ctrl_status = 1
 
     if ctrl_status == 1:
-        handle(k)
+        handle_press(k)
 
 
 def on_release(key):
@@ -38,8 +38,10 @@ def on_release(key):
     if k == "ctrl":
         ctrl_status = 0
 
+    handle_release(k)
 
-def handle(k):
+
+def handle_press(k):
     if k == "up":
         mouseControl.move(0, -DISTANCE)
     elif k == "down":
@@ -50,8 +52,14 @@ def handle(k):
         mouseControl.move(DISTANCE, 0)
     elif k == "enter":
         mouseControl.click(Button.left)
+
     elif k == "0":
-        mouseControl.click(Button.left)
+        mouseControl.press(Button.left)
+
+
+def handle_release(k):
+    if k == "0":
+        mouseControl.release(Button.left)
 
 
 keyListen = KeyboardListener(on_press=on_press, on_release=on_release)
