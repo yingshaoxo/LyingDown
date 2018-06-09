@@ -24,10 +24,17 @@ ___
 3. install other dependences
 
     ```
+    sudo pip3 install python3-xlib
+    sudo apt-get install scrot
+    sudo apt-get install python3-tk
+    sudo apt-get install python3-dev
+    xhost +
+    sudo pip3 install pyautogui
+
     sudo pip3 install numpy
     sudo pip3 install pyscreenshot
-    sudo pip3 install pyautogui
     sudo pip3 install flask
+    sudo pip3 install pynput
     ```
 ___
 
@@ -36,3 +43,9 @@ ___
 ```
 python3 main.py
 ```
+
+### Control
+
+Press `ctrl` with `up down left right` to move mouse
+
+Press `ctrl` with `0` or `enter` to click left mouse key
