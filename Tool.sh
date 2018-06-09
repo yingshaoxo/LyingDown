@@ -8,11 +8,7 @@ pull() {
 push() {
     clear
     git add .
-    if [ "$2" == "" ]; then
-        git commit -m "update"
-    else
-        git commit -m "$2"
-    fi
+    git commit -m "update"
     git push origin
     
 }
