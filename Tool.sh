@@ -10,7 +10,6 @@ push() {
     git add .
     git commit -m "update"
     git push origin
-    
 }
 
 clear() {
@@ -30,8 +29,10 @@ elif [ "$1" == "clear" ]; then
     clear
 
 elif [ "$1" == "" ]; then
-    echo "pull
+    echo "
+pull
 push
-clear"
+clear
+"
 
 fi
