@@ -43,7 +43,11 @@ class VideoCamera(object):
         return frame
 
     def add_cursor(self, frame):
-        x, y = pyautogui.position()
+        try:
+            x, y = pyautogui.position()
+        except Exception as e:
+            print(e)
+            x, y = 0, 0
         xx, yy = x+self.cursor.shape[0], y+self.cursor.shape[1]
         if x >= self.top_left[0] and y >= self.top_left[1] and xx <= self.lower_right[0] and yy <= self.lower_right[1]:
             x, y = x-self.top_left[0], y-self.top_left[1]
