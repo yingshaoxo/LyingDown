@@ -11,10 +11,10 @@ class VideoCamera(object):
         self.screen_width = pyautogui.size()[0]
         self.screen_height = pyautogui.size()[1]
 
-        if num == 1:
+        if num == 0:
             self.top_left = (self.screen_width//2, 0)
             self.lower_right = (self.screen_width, self.screen_height//2)
-        elif num == 2:
+        elif num == 1:
             self.top_left = (self.screen_width//2, self.screen_height//2)
             self.lower_right = (self.screen_width, self.screen_height)
 
@@ -63,7 +63,7 @@ class VideoCamera(object):
 
 
 if __name__ == "__main__":
-    vc = VideoCamera(1)
+    vc = VideoCamera(0)
     while 1:
         frame = vc.get_test_frame()
         cv2.imshow('hi', frame)

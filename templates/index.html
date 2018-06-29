@@ -15,8 +15,8 @@
     </head>
 
     <body>
+        <img id="bg" onclick="toggleFullScreen();" src="{{ url_for('video_feed', num=0) }}">
         <img id="bg" onclick="toggleFullScreen();" src="{{ url_for('video_feed', num=1) }}">
-        <img id="bg" onclick="toggleFullScreen();" src="{{ url_for('video_feed', num=2) }}">
     </body>
 
     <script>
