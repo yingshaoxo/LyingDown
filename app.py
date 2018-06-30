@@ -7,7 +7,6 @@ from screen_camera import VideoCamera
 
 
 app = Flask(__name__)
-cameras = [VideoCamera(0), VideoCamera(1)]
 
 
 @app.route('/')
@@ -25,7 +24,7 @@ def gen(camera):
 @app.route('/video<int:num>')
 def video_feed(num):
     global cameras
-    return Response(gen(cameras[num]),
+    return Response(gen(VideoCamera(num)),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
