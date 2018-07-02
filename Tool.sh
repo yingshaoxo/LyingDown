@@ -2,7 +2,7 @@
 
 run() {
     sudo pip3 install gunicorn
-    gunicorn -w 4 -t 600 -b 0.0.0.0:5000 main:app
+    gunicorn -w 4 -t 1800 -b 0.0.0.0:5000 main:app
 }
 
 pull() {
