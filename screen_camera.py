@@ -23,8 +23,9 @@ class VideoCamera(object):
         # self.lower_right = (self.screen_width, self.screen_height)
 
     def get_frame(self):
-        frame = np.array(ImageGrab.grab(bbox=(
-            self.top_left[0], self.top_left[1], self.lower_right[0], self.lower_right[1])))
+        #frame = np.array(ImageGrab.grab(bbox=(
+        #    self.top_left[0], self.top_left[1], self.lower_right[0], self.lower_right[1])))
+        frame = np.array(ImageGrab.grab())
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         frame = self.add_cursor(frame)
