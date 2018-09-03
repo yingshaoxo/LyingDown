@@ -6,53 +6,33 @@ import cv2
 
 class VideoCamera(object):
     def __init__(self, num):
-        self.num = num
-
         self.screen_width = pyautogui.size()[0]
         self.screen_height = pyautogui.size()[1]
 
-        if num == 0:
-            self.top_left = (self.screen_width//2, 0)
-            self.lower_right = (self.screen_width, self.screen_height//2)
-        elif num == 1:
-            self.top_left = (self.screen_width//2, self.screen_height//2)
-            self.lower_right = (self.screen_width, self.screen_height)
-
         self.cursor = cv2.resize(cv2.imread('cursor.png'), (15, 15))
-        # self.top_left = (0, 0)
-        # self.lower_right = (self.screen_width, self.screen_height)
 
     def get_frame(self):
-        #frame = np.array(ImageGrab.grab(bbox=(
-        #    self.top_left[0], self.top_left[1], self.lower_right[0], self.lower_right[1])))
         frame = np.array(ImageGrab.grab())
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         frame = self.add_cursor(frame)
         # frame = self.sharp(frame)
 
+        return frame
+
+    def get_png(self):
+        frame = self.get_frame()
         ret, png = cv2.imencode('.png', frame)
         return png.tobytes()
-
-    def get_test_frame(self):
-        frame = np.array(ImageGrab.grab(bbox=(
-            self.top_left[0], self.top_left[1], self.lower_right[0], self.lower_right[1])))
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-        frame = self.add_cursor(frame)
-        frame = self.sharp(frame)
-        return frame
 
     def add_cursor(self, frame):
         try:
             x, y = pyautogui.position()
         except Exception as e:
             print(e)
-            x, y = 0, 0
+            return frame
         xx, yy = x+self.cursor.shape[0], y+self.cursor.shape[1]
-        if x >= self.top_left[0] and y >= self.top_left[1] and xx <= self.lower_right[0] and yy <= self.lower_right[1]:
-            x, y = x-self.top_left[0], y-self.top_left[1]
-            xx, yy = x+self.cursor.shape[0], y+self.cursor.shape[1]
+        if x >= 0 and y >= 0 and xx <= self.screen_width and yy <= self.screen_height:
             frame[y:yy, x:xx] = self.cursor
         return frame
 
@@ -70,7 +50,7 @@ class VideoCamera(object):
 if __name__ == "__main__":
     vc = VideoCamera(0)
     while 1:
-        frame = vc.get_test_frame()
+        frame = vc.get_frame()
         cv2.imshow('hi', frame)
         if cv2.waitKey(1) == 27:
             break  # esc to quit

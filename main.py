@@ -1,10 +1,6 @@
 from flask import Flask, render_template, Response
 from screen_camera import VideoCamera
 
-# from auto_everything.base import Terminal
-# t = Terminal()
-# t.run_py("mouse_control.py")
-
 
 app = Flask(__name__)
 
@@ -16,7 +12,7 @@ def index():
 
 def gen(camera):
     while True:
-        frame = camera.get_frame()
+        frame = camera.get_png()
         yield (b'--frame\r\n'
                b'Content-Type: image/png\r\n\r\n' + frame + b'\r\n\r\n')
 
