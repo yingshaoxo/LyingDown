@@ -8,7 +8,7 @@ ___
 
 ### Installation
 
-0. use ubuntu or any system like it
+0. use ubuntu
 
 1. install auto_everything
 
@@ -34,7 +34,6 @@ ___
     sudo pip3 install numpy
     sudo pip3 install pyscreenshot
     sudo pip3 install flask
-    sudo pip3 install pynput
     ```
 ___
 
@@ -44,8 +43,4 @@ ___
 python3 main.py
 ```
 
-### Control
-
-Press `ctrl` with `up down left right` to move mouse
-
-Press `ctrl` with `0` or `enter` to click left mouse key
+Have fun!
