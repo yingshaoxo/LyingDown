@@ -16,6 +16,7 @@ t.kill("chrome")
 t.run_program("google-chrome-stable")
 sleep(2)
 pyautogui.press("f11")
+"""
 pyautogui.moveTo(0,0)
 while 1:
     if gui.exists("chrome_new_tab"):
@@ -28,6 +29,7 @@ pyautogui.typewrite("https://google.com")
 pyautogui.press("enter")
 if gui.exists("chrome_x"):
     gui.click_after_exists("chrome_x")
+"""
 
 
 # 2. run terminator
