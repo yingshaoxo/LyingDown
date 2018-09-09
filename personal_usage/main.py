@@ -13,7 +13,7 @@ print("You have to make sure you got chrome and terminator installed. (Press ent
 
 # 1. start chrome
 t.kill("chrome")
-t.run_program("google-chrome-stable")
+t.run_program("google-chrome-stable --force-device-scale-factor=1.5")
 sleep(2)
 pyautogui.press("f11")
 """
