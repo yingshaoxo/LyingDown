@@ -3,44 +3,73 @@
         <title>Video Streaming</title>
         <style>
             body, html {
-                height: 100vh;
-                width: 100vw;
                 margin: 0;
                 padding: 0;
             }
             img {
-                height: 100vh;
+                /* height: 100vh; */
                 width: 100vw;
             }
         </style>
     </head>
 
     <body>
-        <img id="bg" onclick="toggleFullScreen();" src="{{ url_for('video_feed', num=0) }}">
+        <img
+            id="the_background_527"
+            onclick="toggleFullScreen();"
+            src="{{ url_for('video_feed', num=0) }}"
+        />
     </body>
 
     <script>
         function toggleFullScreen() {
-          if ((document.fullScreenElement && document.fullScreenElement !== null) ||
-          (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-          if (document.documentElement.requestFullScreen) {
-            document.documentElement.requestFullScreen();
-          } else if (document.documentElement.mozRequestFullScreen) {
-            document.documentElement.mozRequestFullScreen();
-          } else if (document.documentElement.webkitRequestFullScreen) {
-            document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-          }
-          } else {
-          if (document.cancelFullScreen) {
-            document.cancelFullScreen();
-          } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-          } else if (document.webkitCancelFullScreen) {
-            document.webkitCancelFullScreen();
-          }
-          }
+            if (
+                (document.fullScreenElement &&
+                    document.fullScreenElement !== null) ||
+                (!document.mozFullScreen && !document.webkitIsFullScreen)
+            ) {
+                if (document.documentElement.requestFullScreen) {
+                    document.documentElement.requestFullScreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullScreen) {
+                    document.documentElement.webkitRequestFullScreen(
+                        Element.ALLOW_KEYBOARD_INPUT
+                    );
+                }
+                document.getElementById("the_background_527").style.height = "100vh";
+                screen.orientation.lock('landscape');
+            } else {
+                if (document.cancelFullScreen) {
+                    document.cancelFullScreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitCancelFullScreen) {
+                    document.webkitCancelFullScreen();
+                }
+                document.getElementById("the_background_527").style.height = "";
+            }
         }
 
-        //document.addEventListener('contextmenu', toggleFullScreen);
+        // var intervalId = window.setInterval(function() {
+        //   var length1 = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+        //   var length2 = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+
+        //   var vw = 1080
+        //   var vh = 1920
+        //   if (length1 >= length2) {
+        //     vh = length2
+        //     vw = length1
+        //   } else {
+        //     vh = length1
+        //     vw = length2
+        //   }
+
+        //   const element = document.getElementById("the_background_527");
+        //   element.style.width = `${vw}px`;
+        //   element.style.height = `${vh}px`;
+        //   screen.orientation.lock('landscape');
+        // }, 1000);
+        // clearInterval(intervalId) 
     </script>
 </html>
