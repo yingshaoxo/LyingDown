@@ -1,5 +1,6 @@
 import numpy as np
-import pyscreenshot as ImageGrab
+#import pyscreenshot as ImageGrab
+from PIL import ImageGrab
 import pyautogui
 import cv2
 
@@ -9,14 +10,25 @@ class VideoCamera(object):
         self.screen_width = pyautogui.size()[0]
         self.screen_height = pyautogui.size()[1]
 
-        self.cursor = cv2.resize(cv2.imread('lyingdown/cursor.png'), (15, 15))
+        cursor_img = np.ones((18, 18, 3), dtype = np.uint8)
+        cursor_img = 255 * cursor_img
+        for num1 in [7, 8, 9, 10, 11]:
+            for num2 in [7, 8, 9, 10, 11]:
+                cursor_img[num1][num2][0] = 0
+                cursor_img[num1][num2][1] = 0
+                cursor_img[num1][num2][2] = 0
+
+        # dir_path = os.path.dirname(os.path.realpath(__file__))
+        # cursor_path = os.path.join(dir_path, "cursor.png")
+        # self.cursor = cv2.resize(cv2.imread(cursor_path), (15, 15))
+
+        self.cursor = cv2.resize(cursor_img, (15, 15))
 
     def get_frame(self):
         frame = np.array(ImageGrab.grab())
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         frame = self.add_cursor(frame)
-        # frame = self.sharp(frame)
 
         return frame
 
@@ -27,6 +39,7 @@ class VideoCamera(object):
 
     def get_jpg(self):
         frame = self.get_frame()
+        #frame = cv2.resize(frame, dsize=(1920, 1080), interpolation=cv2.INTER_LINEAR)
         ret, jpg = cv2.imencode('.jpg', frame)
         return jpg.tobytes()
 

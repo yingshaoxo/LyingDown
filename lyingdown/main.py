@@ -1,5 +1,5 @@
 from flask import Flask, render_template, Response
-from .screen_camera import VideoCamera
+from lyingdown.screen_camera import VideoCamera
 
 
 app = Flask(__name__)
@@ -25,7 +25,10 @@ def video_feed(num):
 
 
 def main():
-    app.run(host='0.0.0.0', debug=True)
+    if "__compiled__" in globals():
+        app.run(host='0.0.0.0')
+    else:
+        app.run(host='0.0.0.0', debug=True)
 
 
 if __name__ == '__main__':
