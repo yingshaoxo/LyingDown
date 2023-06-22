@@ -9,7 +9,7 @@ class VideoCamera(object):
         self.screen_width = pyautogui.size()[0]
         self.screen_height = pyautogui.size()[1]
 
-        self.cursor = cv2.resize(cv2.imread('cursor.png'), (15, 15))
+        self.cursor = cv2.resize(cv2.imread('lyingdown/cursor.png'), (15, 15))
 
     def get_frame(self):
         frame = np.array(ImageGrab.grab())
@@ -24,6 +24,11 @@ class VideoCamera(object):
         frame = self.get_frame()
         ret, png = cv2.imencode('.png', frame)
         return png.tobytes()
+
+    def get_jpg(self):
+        frame = self.get_frame()
+        ret, jpg = cv2.imencode('.jpg', frame)
+        return jpg.tobytes()
 
     def add_cursor(self, frame):
         try:

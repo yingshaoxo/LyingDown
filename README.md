@@ -6,7 +6,12 @@ Lying down with Codes.
 > Let me help you with the power of opencv and x-desktop.
 ___
 
-### Installation
+```
+poetry install
+poetry run service
+```
+
+<!-- ### Installation
 
 0. use ubuntu
 
@@ -44,4 +49,4 @@ python3 main.py
 ```
 ___
 
-> Have fun!
+> Have fun! -->

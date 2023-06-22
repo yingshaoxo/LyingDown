@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "lyingdown"
+version = "0.0.1"
+description = ""
+authors = ["yingshaoxo <yingshaoxo@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^2.3.2"
+numpy = "^1.25.0"
+pyscreenshot = "^3.1"
+pyautogui = "^0.9.54"
+opencv-python = "^4.7.0.72"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+service = "lyingdown.main:main"
