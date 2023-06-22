@@ -12,9 +12,9 @@ def index():
 
 def gen(camera):
     while True:
-        frame = camera.get_jpg()
+        frame = camera.get_png()
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpg\r\n\r\n' + frame + b'\r\n\r\n')
+               b'Content-Type: image/png\r\n\r\n' + frame + b'\r\n\r\n')
 
 
 @app.route('/video<int:num>')
