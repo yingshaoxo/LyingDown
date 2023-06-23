@@ -6,18 +6,20 @@
                 margin: 0;
                 padding: 0;
             }
-            img {
-                /* height: 100vh; */
+            img, canvas {
                 width: 100vw;
             }
         </style>
     </head>
 
     <body>
+        <!-- <canvas
+            id="the_background_527"
+        >
+        </canvas> -->
         <img
             id="the_background_527"
-            onclick="toggleFullScreen();"
-            src="{{ url_for('video_feed', num=0) }}"
+            src="{{ url_for('video', num=0) }}"
         />
     </body>
 
@@ -51,25 +53,123 @@
             }
         }
 
-        // var intervalId = window.setInterval(function() {
-        //   var length1 = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-        //   var length2 = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+        if (document.addEventListener) {
+            document.addEventListener('contextmenu', function(e) {
+                toggleFullScreen();
+                e.preventDefault();
+            }, false);
+        } else {
+            document.attachEvent('oncontextmenu', function() {
+                toggleFullScreen();
+                window.event.returnValue = false;
+            });
+        }
 
-        //   var vw = 1080
-        //   var vh = 1920
-        //   if (length1 >= length2) {
-        //     vh = length2
-        //     vw = length1
-        //   } else {
-        //     vh = length1
-        //     vw = length2
-        //   }
+        /*
+        let dpi = window.devicePixelRatio;
+        var canvas = document.getElementById("the_background_527");
+        var canvas_context = canvas.getContext('2d');
+        canvas_context.imageSmoothingEnabled = false;
 
-        //   const element = document.getElementById("the_background_527");
-        //   element.style.width = `${vw}px`;
-        //   element.style.height = `${vh}px`;
-        //   screen.orientation.lock('landscape');
-        // }, 1000);
-        // clearInterval(intervalId) 
+        function fix_dpi() {
+            let style_height = +getComputedStyle(canvas).getPropertyValue("height").slice(0, -2);
+            let style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
+            canvas.setAttribute('height', style_height * dpi);
+            canvas.setAttribute('width', style_width * dpi);
+        }
+        fix_dpi()
+        window.onresize = fix_dpi
+
+        function animate() {
+            var img = new Image;
+            img.width = "100vw"
+            img.height = "100vh"
+            img.onload = function(){
+                canvas_context.clearRect(0, 0, canvas.width, canvas.height);
+                canvas_context.drawImage(img, 0, 0, canvas.width, canvas.height); // Or at whatever offset you like
+
+                // call again next time we can draw
+                // requestAnimationFrame(animate);
+                setTimeout(animate, 0)
+            };
+            random_number = Math.floor(Math.random() * 1000000000000)
+            var the_url = `{{ url_for('image', random_number=0) }}`
+            img.src = the_url + random_number;
+        }
+
+        animate()
+        */
+
+        // following are additional script 
+
+        function flask_html_send_mouse_move_post_json_requst(percent_x, percent_y) {
+            const SCRIPT_ROOT = {{ request.script_root|tojson }}
+            const mouse_move_url = `${SCRIPT_ROOT}/mouse_move`
+
+            fetch(mouse_move_url, {
+                "method": "POST",
+                "headers": {"Content-Type": "application/json"},
+                "body": JSON.stringify({
+                    percent_x: percent_x,
+                    percent_y: percent_y
+                }),
+            }).then()
+        }
+
+        function flask_html_send_cursor_left_click_post_json_requst(percent_x, percent_y) {
+            const SCRIPT_ROOT = {{ request.script_root|tojson }}
+            const mouse_left_click_url = `${SCRIPT_ROOT}/mouse_left_click`
+
+            fetch(mouse_left_click_url, {
+                "method": "POST",
+                "headers": {"Content-Type": "application/json"},
+                "body": JSON.stringify({
+                    percent_x: percent_x,
+                    percent_y: percent_y
+                }),
+            }).then()
+        }
+
+        let move_mouse_last_called = Date.now()
+        function handle_mouse_move(x, y) {
+            const now = Date.now();
+            if (now - move_mouse_last_called < 111) {
+                return;
+            };
+            move_mouse_last_called = now;
+
+            const x_percent = x / window.innerWidth;
+            const y_percent = y / window.innerHeight;
+
+            flask_html_send_mouse_move_post_json_requst(x_percent, y_percent);
+        }
+
+        function handle_left_click_or_touch(x, y) {
+            // get percent representation of x, y
+            const x_percent = x / window.innerWidth;
+            const y_percent = y / window.innerHeight;
+
+            flask_html_send_cursor_left_click_post_json_requst(x_percent, y_percent);
+        }
+
+        // on mouse move
+        document.addEventListener("mousemove", function(event) {
+            handle_mouse_move(event.pageX, event.pageY)
+        });
+
+        // on touch move
+        document.addEventListener("touchmove", function(event) {
+            handle_mouse_move(event.touches[0].pageX, event.touches[0].pageY)
+        });
+
+        document.addEventListener("click", function(event) {
+            // do something when the user clicks
+            handle_left_click_or_touch(event.pageX, event.pageY)
+        });
+
+        document.addEventListener("touchend", function(event) {
+            // do something after the user touches the screen
+            handle_left_click_or_touch(event.touches[0].pageX, event.touches[0].pageY)
+        });
     </script>
 </html>
