@@ -15,9 +15,9 @@ def index():
 
 def a_screenshot_generator(a_camera: VideoCamera):
     while True:
-        frame = a_camera.get_png()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/png\r\n\r\n' + frame + b'\r\n\r\n')
+        #frame = a_camera.get_png()
+        frame = a_camera.get_png_by_another_method()
+        yield (b'--frame\r\n' + b'Content-Type: image/png\r\n\r\n' + frame + b'\r\n\r\n') # type: ignore
 
 
 @app.route('/video<int:num>')

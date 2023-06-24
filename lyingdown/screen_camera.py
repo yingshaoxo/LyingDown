@@ -1,12 +1,20 @@
 import numpy as np
 #import pyscreenshot as ImageGrab
 from PIL import ImageGrab
+from mss import mss, tools
 import pyautogui
 import cv2
+from sys import platform
 
 
 class VideoCamera(object):
     def __init__(self, num):
+        self.is_linux = True
+        if platform == "linux" or platform == "linux2":
+            self.is_linux = True
+        else:
+            self.is_linux = False
+
         self.screen_width = pyautogui.size()[0]
         self.screen_height = pyautogui.size()[1]
 
@@ -23,15 +31,24 @@ class VideoCamera(object):
         # self.cursor = cv2.resize(cv2.imread(cursor_path), (15, 15))
 
         self.cursor = cv2.resize(cursor_img, (15, 15))
+        self.mss = mss(with_cursor=True, compression_level=1)
+    
+    def get_png_by_another_method(self):
+        img_ = self.mss.grab(self.mss.monitors[0])
+        return tools.to_png(img_.rgb, img_.size)
 
     def get_frame(self):
-        frame = np.array(ImageGrab.grab())
+        if self.is_linux:
+            frame = np.array(ImageGrab.grab(xdisplay="")) # type: ignore
+        else:
+            frame = np.array(ImageGrab.grab(include_layered_windows=True))
+
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         frame = self.add_cursor(frame)
 
         return frame
-
+    
     def get_png(self):
         frame = self.get_frame()
         ret, png = cv2.imencode('.png', frame)

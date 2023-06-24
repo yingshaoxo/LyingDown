@@ -13,6 +13,7 @@ numpy = "^1.25.0"
 pyscreenshot = "^3.1"
 pyautogui = "^0.9.54"
 opencv-python = "^4.7.0.72"
+mss = "^9.0.1"
 
 [build-system]
 requires = ["poetry-core"]
